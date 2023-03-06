@@ -5,20 +5,16 @@ import TextInputField from '../../components/UI/TextInputField';
 import TextWithDivider from '../../components/Typography/TextWithDivider';
 import Banner from '../../components/Layout/Banner';
 
-function FogortPasswordScreen({
-  handleAuthAction,
-}: {
-  handleAuthAction: (action: string) => void;
-}) {
+function AccountVerificationScreen() {
   return (
     <>
-      <Banner text="Please enter the email address or the phone number registered with Kwangu Health." />
+      <Banner text="Please enter the code received in your email or text message." />
       <TextInputField
-        config={{ placeholder: 'Email/Phone Number' }}
+        config={{ placeholder: 'Code' }}
         styling={{ marginBottom: 24 }}
       />
       <Button
-        title="Request Password Reset"
+        title="Verify Account"
         color={Colors.primary}
         variant="solid"
         onPress={() => {}}
@@ -26,21 +22,19 @@ function FogortPasswordScreen({
         styling={{ marginBottom: 24 }}
       />
       <TextWithDivider
-        text="I remembered my password"
+        text="Didn't receive code?"
         color={Colors.textInputGray}
       />
 
       <Button
-        title="Login"
+        title="Resend Code"
         color={Colors.primary}
         variant="outlined"
-        onPress={() => {
-          handleAuthAction('login');
-        }}
+        onPress={() => {}}
         fullWidth
       />
     </>
   );
 }
 
-export default FogortPasswordScreen;
+export default AccountVerificationScreen;

@@ -2,15 +2,15 @@ import { StyleSheet, Text, View } from 'react-native';
 import React from 'react';
 import ScreenHeader from '../components/ScreenHeader';
 
-function RequestsScreen() {
+const ServicesScreen = () => {
   return (
     <View>
-      <ScreenHeader heading="My Requests" />
-      <Text>RequestsScreen</Text>
+      <ScreenHeader heading="Our Services" />
+      <Text>ServicesScreen</Text>
     </View>
   );
-}
+};
 
-export default RequestsScreen;
+export default ServicesScreen;
 
 const styles = StyleSheet.create({});
