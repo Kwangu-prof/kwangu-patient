@@ -87,7 +87,7 @@ export default function App() {
 
   return (
     <NavigationContainer theme={MyTheme} onReady={onLayoutRootView}>
-      {!firstTimeLaunch ? (
+      {firstTimeLaunch ? (
         <>
           {/* eslint-disable-next-line react/style-prop-object */}
           <StatusBar style="dark" />

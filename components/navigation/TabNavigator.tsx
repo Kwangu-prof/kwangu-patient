@@ -31,6 +31,9 @@ const TabNavigator = () => {
               elevation: 0,
               shadowOpacity: 0,
             },
+            headerTitleStyle: {
+              display: 'none',
+            },
           }}
         >
           <Tab.Screen

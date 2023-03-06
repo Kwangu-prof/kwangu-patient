@@ -1,5 +1,6 @@
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import React from 'react';
+import FloatingButton from '../UI/FloatingButton';
 
 const styles = StyleSheet.create({
   container: {
@@ -13,7 +14,12 @@ interface ContainerProps {
 }
 
 const Container: React.FunctionComponent<ContainerProps> = ({ children }) => {
-  return <View style={styles.container}>{children}</View>;
+  return (
+    <View style={styles.container}>
+      {children}
+      {/* <FloatingButton /> */}
+    </View>
+  );
 };
 
 export default Container;

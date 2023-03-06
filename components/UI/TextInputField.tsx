@@ -1,10 +1,8 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import {
   StyleSheet,
-  Text,
   View,
   TextInput,
-  KeyboardTypeOptions,
   TextInputProps,
   Pressable,
 } from 'react-native';
@@ -18,6 +16,8 @@ interface Props {
   styling?: object;
   icon?: keyof typeof Ionicons.glyphMap;
   iconFunction?: () => void;
+  reverse?: boolean;
+  iconColor?: string;
 }
 
 const styles = StyleSheet.create({
@@ -41,13 +41,30 @@ const styles = StyleSheet.create({
   },
 });
 
-const TextInputField = ({ config, styling, icon, iconFunction }: Props) => {
+const TextInputField = ({
+  config,
+  styling,
+  icon,
+  iconFunction,
+  reverse,
+  iconColor,
+}: Props) => {
   return (
-    <View style={[styles.inputContainer, styling]}>
+    <View
+      style={[
+        styles.inputContainer,
+        styling,
+        { flexDirection: reverse ? 'row-reverse' : 'row' },
+      ]}
+    >
       <TextInput style={styles.input} {...config} />
       {icon && (
         <Pressable onPress={iconFunction}>
-          <Icon name={icon} size={20} color={Colors.textInputGray} />
+          <Icon
+            name={icon}
+            size={20}
+            color={iconColor || Colors.textInputGray}
+          />
         </Pressable>
       )}
     </View>
