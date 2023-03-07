@@ -10,7 +10,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: 22,
+    marginVertical: 5,
   },
 });
 

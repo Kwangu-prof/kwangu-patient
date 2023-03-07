@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
   wrapper: {
     borderBottomWidth: 0.5,
     borderBottomColor: Colors.lightGray,
-    paddingVertical: 18,
+    paddingVertical: 12,
     marginBottom: 10,
   },
   billContainer: {

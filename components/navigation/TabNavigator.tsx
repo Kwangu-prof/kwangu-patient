@@ -3,6 +3,7 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from '@expo/vector-icons/Ionicons';
+import { Platform } from 'react-native';
 import TransactionsIcon from '../icons/TransactionsIcon';
 import RequestIcon from '../icons/RequestIcon';
 import TransactionsScreen from '../../screens/TransactionsScreen';
@@ -33,6 +34,14 @@ const TabNavigator = () => {
             },
             headerTitleStyle: {
               display: 'none',
+            },
+            tabBarStyle: {
+              // paddingVertical,
+              height: Platform.OS === 'android' ? 60 : 80,
+              // height: 60,
+            },
+            tabBarItemStyle: {
+              marginVertical: Platform.OS === 'android' ? 10 : 0,
             },
           }}
         >

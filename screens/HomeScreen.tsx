@@ -13,14 +13,14 @@ const styles = StyleSheet.create({
     backgroundColor: '#ffff',
   },
   section: {
-    marginBottom: 28,
+    // marginVertical: 5,
   },
 });
 
 function HomeScreen() {
   const [upcoming, setUpcoming] = useState(false);
   return (
-    <ScrollView style={styles.container}>
+    <>
       <Container>
         <ScreenHeader
           heading="Hello Natalia,"
@@ -32,11 +32,11 @@ function HomeScreen() {
         <View style={styles.section}>
           <ServicesList />
         </View>
-        <View style={styles.section}>
-          <BillsList />
-        </View>
       </Container>
-    </ScrollView>
+      <View style={styles.section}>
+        <BillsList />
+      </View>
+    </>
   );
 }
 

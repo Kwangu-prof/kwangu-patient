@@ -1,6 +1,7 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { FlatList, StyleSheet, Text, View } from 'react-native';
 import React from 'react';
 import { useNavigation } from '@react-navigation/native';
+import { ScrollView } from 'react-native-gesture-handler';
 import { ScreenNavigationProp } from '../Utils/types';
 import Redirect from './Typography/Redirect';
 import Heading from './Typography/Heading';
@@ -83,23 +84,26 @@ const BillsList = () => {
   const pendingBills = bills?.slice(0, 5);
 
   return (
-    <View>
+    <View style={{ paddingHorizontal: 16 }}>
       <SectionHeading>
         <Heading heading="Pending Bills" />
         <Redirect text="see all" onPress={handlePress} />
       </SectionHeading>
-      {/* <FlatList
+      <FlatList
+        showsVerticalScrollIndicator={false}
         data={bills}
         renderItem={({ item }) => <BillItem bill={item} />}
         keyExtractor={(item) => item.id.toString()}
-      /> */}
-      {pendingBills.length === 0 ? (
-        <Text style={styles.text}>No pending bills</Text>
-      ) : (
-        pendingBills.map((pendingBill) => (
-          <BillItem bill={pendingBill} key={pendingBill.id} />
-        ))
-      )}
+      />
+      {/* <ScrollView>
+        {pendingBills.length === 0 ? (
+          <Text style={styles.text}>No pending bills</Text>
+        ) : (
+          pendingBills.map((pendingBill) => (
+            <BillItem bill={pendingBill} key={pendingBill.id} />
+          ))
+        )}
+      </ScrollView> */}
     </View>
   );
 };
