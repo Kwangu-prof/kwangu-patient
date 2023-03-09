@@ -27,21 +27,21 @@ const styles = StyleSheet.create({
     marginVertical: 10,
   },
   billName: {
-    fontFamily: 'ubuntu',
+    fontFamily: 'helvetica',
     lineHeight: 21,
   },
   billAmount: {
-    fontFamily: 'ubuntuMedium',
+    fontFamily: 'helveticaMedium',
     lineHeight: 24,
   },
   billDate: {
-    fontFamily: 'ubuntu',
+    fontFamily: 'helvetica',
     color: Colors.gray,
     fontSize: 11,
     lineHeight: 16,
   },
   billStatus: {
-    fontFamily: 'ubuntu',
+    fontFamily: 'helvetica',
     fontSize: 11,
     lineHeight: 16,
     textTransform: 'capitalize',

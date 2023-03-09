@@ -9,7 +9,7 @@ type Props = {
 
 const styles = StyleSheet.create({
   subtitle: {
-    fontFamily: 'ubuntu',
+    fontFamily: 'helvetica',
     color: Colors.gray,
     textAlign: 'center',
   },

@@ -68,7 +68,7 @@ export const bills = [
 ];
 const styles = StyleSheet.create({
   text: {
-    fontFamily: 'ubuntuMedium',
+    fontFamily: 'helveticaMedium',
     textAlign: 'center',
     fontSize: 16,
   },

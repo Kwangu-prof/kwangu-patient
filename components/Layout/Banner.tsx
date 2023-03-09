@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
   },
   text: {
-    fontFamily: 'ubuntuMedium',
+    fontFamily: 'helveticaMedium',
     lineHeight: 21,
     color: Colors.secondaryDark,
   },

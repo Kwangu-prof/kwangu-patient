@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     color: Colors.white,
-    fontFamily: 'ubuntuMedium',
+    fontFamily: 'helveticaMedium',
     marginHorizontal: 12,
   },
 });

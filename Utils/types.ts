@@ -4,6 +4,8 @@ export type RootStackParamList = {
   HomeScreen: undefined;
   Onboarding: undefined;
   ServicesScreen: undefined;
+  profile: undefined;
+  EditProfileScreen: undefined;
 };
 
 export type ScreenNavigationProp =

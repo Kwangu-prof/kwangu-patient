@@ -8,7 +8,7 @@ export interface Iprops {
 
 const styles = StyleSheet.create({
   title: {
-    fontFamily: 'ubuntuMedium',
+    fontFamily: 'helveticaMedium',
     fontSize: 18,
     lineHeight: 27,
   },

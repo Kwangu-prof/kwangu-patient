@@ -1,18 +1,15 @@
 /* eslint-disable import/no-dynamic-require */
 /* eslint-disable global-require */
-import {
-  Image,
-  ImageSourcePropType,
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native';
+import { Image, Pressable, StyleSheet, Text, View } from 'react-native';
 import React from 'react';
+import { useNavigation } from '@react-navigation/native';
+import { RootStackParamList } from 'App';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import Colors from '../Utils/Colors';
 
-interface ServiceItemProps {
+export interface ServiceItemProps {
   service: {
-    id: number;
+    id: string;
     image: string;
     name: string;
     description: string;
@@ -38,7 +35,7 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
   title: {
-    fontFamily: 'ubuntu',
+    fontFamily: 'helvetica',
     color: Colors.primary,
     lineHeight: 21,
     fontSize: 14,
@@ -49,20 +46,28 @@ const styles = StyleSheet.create({
 const ServiceItem: React.FunctionComponent<ServiceItemProps> = ({
   service,
 }) => {
+  const navigation =
+    useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+
+  const handleNavigation = () => {
+    navigation.navigate('ServiceDetailsScreen', { serviceId: service.id });
+  };
+
   return (
-    <View style={styles.container}>
-      <View style={styles.innerContainer}>
-        <Image
-          style={styles.image}
-          source={service?.image as ImageSourcePropType}
-          resizeMode="contain"
-        />
-        {/* <Image style={styles.image} source={{ uri: service.image }} /> */}
-        <Text style={styles.title} numberOfLines={1}>
-          {service.name}
-        </Text>
+    <Pressable onPress={handleNavigation}>
+      <View style={styles.container}>
+        <View style={styles.innerContainer}>
+          <Image
+            style={styles.image}
+            source={{ uri: service.image }}
+            resizeMode="cover"
+          />
+          <Text style={styles.title} numberOfLines={1}>
+            {service.name}
+          </Text>
+        </View>
       </View>
-    </View>
+    </Pressable>
   );
 };
 

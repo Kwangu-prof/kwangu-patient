@@ -41,7 +41,7 @@ function ResetPasswordScreen() {
         styling={{ marginBottom: 24 }}
       />
       <Button
-        title="Sign Up"
+        title="Reset Password"
         color={Colors.primary}
         variant="solid"
         onPress={() => {}}

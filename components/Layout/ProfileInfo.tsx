@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
     borderBottomColor: Colors.lightGray,
   },
   secondaryInforText: {
-    fontFamily: 'ubuntu',
+    fontFamily: 'helvetica',
     lineHeight: 21,
   },
 });

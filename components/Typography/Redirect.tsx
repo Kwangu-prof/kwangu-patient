@@ -7,7 +7,7 @@ const styles = StyleSheet.create({
   redirect: { flexDirection: 'row', alignItems: 'center' },
   text: {
     color: Colors.secondary,
-    fontFamily: 'ubuntu',
+    fontFamily: 'helvetica',
     fontSize: 14,
     textDecorationLine: 'underline',
     textTransform: 'capitalize',

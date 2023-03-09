@@ -1,5 +1,5 @@
 /* eslint-disable global-require */
-import { Image, StyleSheet, Text } from 'react-native';
+import { Image, StyleSheet, Text, View } from 'react-native';
 import React, { useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import SignInScreen from './SignInScreen';
@@ -14,15 +14,16 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     paddingHorizontal: 20,
+    // paddingVertical: 10,
   },
   title: {
-    fontFamily: 'ubuntuMedium',
+    fontFamily: 'helveticaMedium',
     fontSize: 24,
     lineHeight: 36,
     textTransform: 'capitalize',
-    marginBottom: 20,
+    marginBottom: 10,
   },
-  prompt: { marginBottom: 24 },
+  prompt: { marginBottom: 10 },
 });
 
 const AuthScreen = () => {
@@ -33,10 +34,12 @@ const AuthScreen = () => {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <Image
+        resizeMode="contain"
+        resizeMethod="resize"
         source={require('../../assets/onboardingLogo.png')}
-        style={{ marginBottom: 30 }}
+        style={{ marginBottom: 5, width: 276, height: 42 }}
       />
       <Text style={styles.title}>{authOption}</Text>
       {authOption === 'login' && (
@@ -50,7 +53,7 @@ const AuthScreen = () => {
       )}
       {authOption === 'account verification' && <AccountVerificationScreen />}
       {authOption === 'reset password' && <ResetPasswordScreen />}
-    </SafeAreaView>
+    </View>
   );
 };
 

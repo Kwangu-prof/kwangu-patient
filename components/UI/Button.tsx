@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
     borderRadius: 45,
   },
   buttonText: {
-    fontFamily: 'ubuntuMedium',
+    fontFamily: 'helveticaMedium',
     lineHeight: 21,
     textTransform: 'capitalize',
   },
@@ -47,7 +47,7 @@ const Button: React.FunctionComponent<ButtonProps> = ({
           backgroundColor: variant === 'solid' ? color : 'transparent',
           borderWidth: 1,
           borderColor: color,
-          width: fullWidth ? '100%' : 165,
+          width: fullWidth ? '100%' : 160,
         },
         styling,
         pressed && styles.pressed,

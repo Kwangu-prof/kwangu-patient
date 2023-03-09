@@ -1,6 +1,6 @@
 /* eslint-disable react/no-unstable-nested-components */
 
-import React from 'react';
+import React, { useContext } from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { Platform } from 'react-native';
@@ -10,41 +10,55 @@ import TransactionsScreen from '../../screens/TransactionsScreen';
 import RequestsScreen from '../../screens/RequestsScreen';
 import HomeIcon from '../icons/HomeIcon';
 import Colors from '../../Utils/Colors';
-import ProfileScreen from '../../screens/ProfileScreen';
 import HomeStackNavigator from './HomeStackNavigator';
 import AuthScreen from '../../screens/auth/AuthScreen';
+import { AuthContext } from '../../store/Context/auth-context';
+import ProfileStackNavigator from './ProfileStackNavigator';
 
 const Tab = createBottomTabNavigator();
 
-const isAuthenticated = true;
-
+// const isAuthenticated =;
 const TabNavigator = () => {
+  const authContext = useContext(AuthContext);
+
+  const { isAuthenticated } = authContext;
+
   return (
-    // eslint-disable-next-line react/jsx-no-useless-fragment
-    <>
+    <Tab.Navigator
+      // initialRouteName={fromRegister === 'true' ? 'Profile' : 'Home'}
+      screenOptions={{
+        tabBarActiveTintColor: Colors.secondary,
+        headerStyle: {
+          elevation: 0,
+          shadowOpacity: 0,
+        },
+        headerTitleStyle: {
+          display: 'none',
+        },
+        tabBarStyle: {
+          // paddingVertical,
+          height: Platform.OS === 'android' ? 60 : 80,
+          // height: 60,
+        },
+        tabBarItemStyle: {
+          marginVertical: Platform.OS === 'android' ? 10 : 0,
+        },
+      }}
+    >
       {!isAuthenticated ? (
-        <AuthScreen />
-      ) : (
-        <Tab.Navigator
-          screenOptions={{
-            tabBarActiveTintColor: Colors.secondary,
-            headerStyle: {
-              elevation: 0,
-              shadowOpacity: 0,
-            },
-            headerTitleStyle: {
+        <Tab.Screen
+          name="Auth"
+          component={AuthScreen}
+          options={{
+            // tabBarIcon: ({ color }) => <HomeIcon color={color} />,
+            tabBarStyle: {
               display: 'none',
             },
-            tabBarStyle: {
-              // paddingVertical,
-              height: Platform.OS === 'android' ? 60 : 80,
-              // height: 60,
-            },
-            tabBarItemStyle: {
-              marginVertical: Platform.OS === 'android' ? 10 : 0,
-            },
           }}
-        >
+        />
+      ) : (
+        // <AuthScreen />
+        <>
           <Tab.Screen
             name="Home"
             component={HomeStackNavigator}
@@ -68,16 +82,16 @@ const TabNavigator = () => {
           />
           <Tab.Screen
             name="Profile"
-            component={ProfileScreen}
+            component={ProfileStackNavigator}
             options={{
               tabBarIcon: ({ color }) => (
                 <Ionicons name="person-outline" color={color} size={24} />
               ),
             }}
           />
-        </Tab.Navigator>
+        </>
       )}
-    </>
+    </Tab.Navigator>
   );
 };
 

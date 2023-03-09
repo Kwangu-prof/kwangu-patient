@@ -22,10 +22,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   buttonText: {
-    fontFamily: 'ubuntuMedium',
+    fontFamily: 'helveticaMedium',
   },
   text: {
-    fontFamily: 'ubuntuMedium',
+    fontFamily: 'helveticaMedium',
     textAlign: 'center',
     fontSize: 16,
   },

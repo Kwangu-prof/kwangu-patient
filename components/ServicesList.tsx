@@ -5,10 +5,19 @@ import { ScreenNavigationProp } from 'App';
 import Heading from './Typography/Heading';
 import Redirect from './Typography/Redirect';
 import ServiceItem from './ServiceItem';
-import services from '../Utils/services';
 import SectionHeading from './Layout/SectionHeading';
 
 export interface Iprops {
+  data: [
+    {
+      id: string;
+      name: string;
+      description: string;
+      image: string;
+      country: string;
+      image_icon: string;
+    }
+  ];
   styling?: object;
 }
 
@@ -18,7 +27,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const ServicesList: React.FunctionComponent<Iprops> = ({ styling }) => {
+const ServicesList: React.FunctionComponent<Iprops> = ({ data, styling }) => {
   const navigation = useNavigation<ScreenNavigationProp>();
 
   const handlePress = () => {
@@ -32,8 +41,9 @@ const ServicesList: React.FunctionComponent<Iprops> = ({ styling }) => {
       </SectionHeading>
       <View style={styles.serviceContainer}>
         <FlatList
+          showsHorizontalScrollIndicator={false}
           horizontal
-          data={services}
+          data={data}
           renderItem={({ item }) => <ServiceItem service={item} />}
           keyExtractor={(item) => item.id.toString()}
         />

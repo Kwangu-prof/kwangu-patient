@@ -43,12 +43,12 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   heading: {
-    fontFamily: 'ubuntuBold',
+    fontFamily: 'helveticaBold',
     fontSize: 30,
     marginBottom: 12,
   },
   text: {
-    fontFamily: 'ubuntu',
+    fontFamily: 'helvetica',
     lineHeight: 21,
     textAlign: 'left',
   },

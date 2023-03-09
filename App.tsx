@@ -1,3 +1,4 @@
+/* eslint-disable global-require */
 import { DefaultTheme, NavigationContainer } from '@react-navigation/native';
 import * as SplashScreen from 'expo-splash-screen';
 import * as Font from 'expo-font';
@@ -6,21 +7,27 @@ import {
   Ubuntu_500Medium,
   Ubuntu_700Bold,
 } from '@expo-google-fonts/ubuntu';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useContext, useEffect, useState } from 'react';
 import {
   createNativeStackNavigator,
   NativeStackNavigationProp,
 } from '@react-navigation/native-stack';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { StatusBar } from 'expo-status-bar';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import OnboardingScreen from './screens/OnboardingScreen';
 import 'react-native-gesture-handler';
 import TabNavigator from './components/navigation/TabNavigator';
+import AuthContextProvider, { AuthContext } from './store/Context/auth-context';
+import { ServiceItemProps } from './components/ServiceItem';
 
 export type RootStackParamList = {
   HomeScreen: undefined;
   Onboarding: undefined;
   ServicesScreen: undefined;
+  ServiceDetailsScreen: {
+    serviceId: string;
+  };
 };
 
 export type ScreenNavigationProp =
@@ -38,9 +45,33 @@ const MyTheme = {
   },
 };
 
-export default function App() {
+const queryClient = new QueryClient();
+
+const Root = () => {
+  const { authenticate } = useContext(AuthContext);
   const [appIsReady, setAppIsReady] = useState(false);
   const [firstTimeLaunch, setFirstTimeLaunch] = useState<boolean>(true);
+  const [isAuthenticating, setIsAuthenticating] = useState(true);
+
+  const [fontsLoaded] = Font.useFonts({
+    helvetica: require('./assets/fonts/helvetica-light.otf'),
+    helveticaMedium: require('./assets/fonts/Helvetica.otf'),
+    helveticaBold: require('./assets/fonts/Helvetica-Bold.otf'),
+  });
+
+  useEffect(() => {
+    const fetchToken = async () => {
+      const storedToken = await AsyncStorage.getItem('token');
+      const storedDetails = await AsyncStorage.getItem('userDetails');
+
+      if (storedToken && storedDetails) {
+        authenticate(storedToken, JSON.parse(storedDetails));
+      }
+      setIsAuthenticating(false);
+    };
+    fetchToken();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     const getAppData = async () => {
@@ -87,22 +118,34 @@ export default function App() {
 
   return (
     <NavigationContainer theme={MyTheme} onReady={onLayoutRootView}>
-      {firstTimeLaunch ? (
-        <>
-          {/* eslint-disable-next-line react/style-prop-object */}
-          <StatusBar style="dark" />
-          <Stack.Navigator
-            screenOptions={{
-              headerShown: false,
-            }}
-          >
-            <Stack.Screen name="Onboarding" component={OnboardingScreen} />
-            <Stack.Screen name="HomeScreen" component={TabNavigator} />
-          </Stack.Navigator>
-        </>
-      ) : (
-        <TabNavigator />
-      )}
+      <AuthContextProvider>
+        {firstTimeLaunch ? (
+          <>
+            {/* eslint-disable-next-line react/style-prop-object */}
+            <StatusBar style="dark" />
+            <Stack.Navigator
+              screenOptions={{
+                headerShown: false,
+              }}
+            >
+              <Stack.Screen name="Onboarding" component={OnboardingScreen} />
+              <Stack.Screen name="HomeScreen" component={TabNavigator} />
+            </Stack.Navigator>
+          </>
+        ) : (
+          <TabNavigator />
+        )}
+      </AuthContextProvider>
     </NavigationContainer>
+  );
+};
+
+export default function App() {
+  return (
+    // <AuthContextProvider>
+    <QueryClientProvider client={queryClient}>
+      <Root />
+    </QueryClientProvider>
+    // </AuthContextProvider>
   );
 }
