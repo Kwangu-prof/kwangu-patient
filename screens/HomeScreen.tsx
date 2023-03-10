@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
 
 function HomeScreen() {
   const [upcoming, setUpcoming] = useState(false);
-  const { userDetails, logout } = useContext(AuthContext);
+  const { userDetails } = useContext(AuthContext);
 
   const { data, isLoading, error } = useFetchData(
     ['services'],
@@ -30,8 +30,6 @@ function HomeScreen() {
     'Error fetching services',
     true
   );
-
-  // console.log('userDetails', userDetails);
 
   return (
     <>
@@ -46,7 +44,6 @@ function HomeScreen() {
         <View style={styles.section}>
           <ServicesList data={data?.data?.data} />
         </View>
-        <Button title="Logout" onPress={() => logout()} />
       </Container>
       <View style={styles.section}>
         <BillsList />

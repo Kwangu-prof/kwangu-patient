@@ -15,11 +15,11 @@ import {
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { StatusBar } from 'expo-status-bar';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { MenuProvider } from 'react-native-popup-menu';
 import OnboardingScreen from './screens/OnboardingScreen';
 import 'react-native-gesture-handler';
 import TabNavigator from './components/navigation/TabNavigator';
 import AuthContextProvider, { AuthContext } from './store/Context/auth-context';
-import { ServiceItemProps } from './components/ServiceItem';
 
 export type RootStackParamList = {
   HomeScreen: undefined;
@@ -144,7 +144,9 @@ export default function App() {
   return (
     // <AuthContextProvider>
     <QueryClientProvider client={queryClient}>
-      <Root />
+      <MenuProvider>
+        <Root />
+      </MenuProvider>
     </QueryClientProvider>
     // </AuthContextProvider>
   );
