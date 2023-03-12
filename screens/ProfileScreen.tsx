@@ -8,7 +8,6 @@ import Colors from '../Utils/Colors';
 import ProfileInfo from '../components/Layout/ProfileInfo';
 import Button from '../components/UI/Button';
 import { AuthContext } from '../store/Context/auth-context';
-import { ScreenNavigationProp } from '../Utils/types';
 
 const styles = StyleSheet.create({
   mainInfoContainer: {
@@ -49,7 +48,7 @@ const styles = StyleSheet.create({
 function ProfileScreen() {
   const { userDetails } = useContext(AuthContext);
 
-  const navigation = useNavigation<ScreenNavigationProp>();
+  const navigation = useNavigation();
 
   return (
     <Container>

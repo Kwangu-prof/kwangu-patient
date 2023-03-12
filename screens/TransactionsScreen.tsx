@@ -1,5 +1,7 @@
 import { StyleSheet, Text, View, FlatList, Pressable } from 'react-native';
 import React, { useEffect, useState } from 'react';
+import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
+import { TabNavigatorParamList } from '../components/navigation/TabNavigator';
 import Container from '../components/Layout/Container';
 import ScreenHeader from '../components/ScreenHeader';
 import BillItem from '../components/BillItem';
@@ -31,8 +33,16 @@ const styles = StyleSheet.create({
   },
 });
 
-function TransactionsScreen() {
-  const [transactionType, setTransactionType] = useState('transactions');
+// type Props = {
+//   navigationProps: BottomTabScreenProps<TabNavigatorParamList, 'Transactions'>;
+// };
+
+type Props = BottomTabScreenProps<TabNavigatorParamList, 'Transactions'>;
+
+function TransactionsScreen({ route }: Props) {
+  const { billType } = route.params;
+
+  const [transactionType, setTransactionType] = useState(billType);
   const [filteredBills, setFilteredBills] = useState(bills);
 
   const handleTransactionChange = () => {

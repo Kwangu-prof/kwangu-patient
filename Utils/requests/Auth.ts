@@ -28,7 +28,7 @@ export const getUserProfile = async (token: string) => {
         Authorization: `Bearer ${token}`,
       },
     });
-    console.log('data from patientr', data.data.patient);
+
     return data.data.patient;
   } catch (error) {
     return error;

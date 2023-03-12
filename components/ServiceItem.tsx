@@ -3,9 +3,10 @@
 import { Image, Pressable, StyleSheet, Text, View } from 'react-native';
 import React from 'react';
 import { useNavigation } from '@react-navigation/native';
-import { RootStackParamList } from 'App';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
+
 import Colors from '../Utils/Colors';
+import { HomeStackParamList } from './navigation/HomeStackNavigator';
 
 export interface ServiceItemProps {
   service: {
@@ -43,14 +44,18 @@ const styles = StyleSheet.create({
   },
 });
 
+type ServiceItemScreenNavigationProps = NativeStackNavigationProp<
+  HomeStackParamList,
+  'Home'
+>;
+
 const ServiceItem: React.FunctionComponent<ServiceItemProps> = ({
   service,
 }) => {
-  const navigation =
-    useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+  const { navigate } = useNavigation<ServiceItemScreenNavigationProps>();
 
   const handleNavigation = () => {
-    navigation.navigate('ServiceDetailsScreen', { serviceId: service.id });
+    navigate('ServiceDetailsScreen', { serviceId: service.id });
   };
 
   return (

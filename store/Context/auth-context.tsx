@@ -53,7 +53,6 @@ const AuthContextProvider: React.FunctionComponent<{
   const [authState, setAuthState] = useState<AuthState>();
 
   const authenticate = async (token: string, userProfile: any) => {
-    console.log('userProfile from context', userProfile);
     setAuthState({
       token,
       userDetails: userProfile,

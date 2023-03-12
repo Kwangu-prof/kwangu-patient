@@ -10,7 +10,7 @@ import {
 import { useCallback, useContext, useEffect, useState } from 'react';
 import {
   createNativeStackNavigator,
-  NativeStackNavigationProp,
+  NativeStackScreenProps,
 } from '@react-navigation/native-stack';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { StatusBar } from 'expo-status-bar';
@@ -20,20 +20,14 @@ import OnboardingScreen from './screens/OnboardingScreen';
 import 'react-native-gesture-handler';
 import TabNavigator from './components/navigation/TabNavigator';
 import AuthContextProvider, { AuthContext } from './store/Context/auth-context';
+import { HomeStackParamList } from './components/navigation/HomeStackNavigator';
 
 export type RootStackParamList = {
-  HomeScreen: undefined;
+  HomeStack: NativeStackScreenProps<HomeStackParamList>;
   Onboarding: undefined;
-  ServicesScreen: undefined;
-  ServiceDetailsScreen: {
-    serviceId: string;
-  };
 };
 
-export type ScreenNavigationProp =
-  NativeStackNavigationProp<RootStackParamList>;
-
-const Stack = createNativeStackNavigator();
+const Stack = createNativeStackNavigator<RootStackParamList>();
 
 SplashScreen.preventAutoHideAsync();
 
@@ -129,7 +123,7 @@ const Root = () => {
               }}
             >
               <Stack.Screen name="Onboarding" component={OnboardingScreen} />
-              <Stack.Screen name="HomeScreen" component={TabNavigator} />
+              <Stack.Screen name="HomeStack" component={TabNavigator} />
             </Stack.Navigator>
           </>
         ) : (

@@ -4,22 +4,29 @@ import React, { useContext, useRef, useState } from 'react';
 
 import PhoneInput, { isValidNumber } from 'react-native-phone-number-input';
 import axios from 'axios';
-import { useNavigation } from '@react-navigation/native';
+import { CompositeScreenProps, useNavigation } from '@react-navigation/native';
 
-import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
+import {
+  NativeStackNavigationProp,
+  NativeStackScreenProps,
+} from '@react-navigation/native-stack';
+import {
+  BottomTabNavigationProp,
+  BottomTabScreenProps,
+} from '@react-navigation/bottom-tabs';
+import { ProfileStackParamList } from '../../components/navigation/ProfileStackNavigator';
 import Button from '../../components/UI/Button';
 import Colors from '../../Utils/Colors';
 import Redirect from '../../components/Typography/Redirect';
 import TextInputField from '../../components/UI/TextInputField';
 import TextWithDivider from '../../components/Typography/TextWithDivider';
 import { AuthContext } from '../../store/Context/auth-context';
-import RootHomeStackParamList from '../../types/navigationTypes';
 import {
   createUser,
   getUserProfile,
   loginUser,
 } from '../../Utils/requests/Auth';
-import { ScreenNavigationProp } from '../../Utils/types';
+import { TabNavigatorParamList } from '../../components/navigation/TabNavigator';
 
 const styles = StyleSheet.create({
   redirect: {
@@ -49,8 +56,14 @@ function SignUpScreen(
   });
   const phoneInput = useRef<PhoneInput>(null);
   const authContext = useContext(AuthContext);
-  const { navigate } = useNavigation<ScreenNavigationProp>();
 
+  type ProfileScreenProps = CompositeScreenProps<
+    // NativeStackScreenProps<RootStackParamList, 'HomeStack'>,
+    BottomTabScreenProps<TabNavigatorParamList, 'Profile'>,
+    NativeStackScreenProps<ProfileStackParamList, 'ProfileScreen'>
+  >;
+
+  const { navigation } = useNavigation<ProfileScreenProps>();
   const handleInputChange = (inputIdentifier: any, enteredText: any) => {
     setInputValues((prevState) => {
       return { ...prevState, [inputIdentifier]: enteredText };
@@ -58,7 +71,6 @@ function SignUpScreen(
   };
 
   const handleRegister = async () => {
-    console.log('inputValues', inputValues);
     setisLoading(true);
 
     try {
@@ -68,11 +80,10 @@ function SignUpScreen(
 
       authContext.authenticate(token, userProfile);
       setisLoading(false);
-      navigate('Profile', {
+      navigation.navigate('Profile' as any, {
         screen: 'EditProfileScreen',
       });
     } catch (error) {
-      console.log('error', error);
       setisLoading(false);
     }
   };

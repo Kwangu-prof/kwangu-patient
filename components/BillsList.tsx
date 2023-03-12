@@ -1,12 +1,12 @@
-import { FlatList, StyleSheet, Text, View } from 'react-native';
+import { FlatList, StyleSheet, View } from 'react-native';
 import React from 'react';
 import { useNavigation } from '@react-navigation/native';
-import { ScrollView } from 'react-native-gesture-handler';
-import { ScreenNavigationProp } from '../Utils/types';
+import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
 import Redirect from './Typography/Redirect';
 import Heading from './Typography/Heading';
 import SectionHeading from './Layout/SectionHeading';
 import BillItem from './BillItem';
+import { TabNavigatorParamList } from './navigation/TabNavigator';
 
 export const bills = [
   {
@@ -66,6 +66,12 @@ export const bills = [
     type: 'debit',
   },
 ];
+
+type BillScreenNavigationType = BottomTabNavigationProp<
+  TabNavigatorParamList,
+  'Transactions'
+>;
+
 const styles = StyleSheet.create({
   text: {
     fontFamily: 'helveticaMedium',
@@ -75,13 +81,11 @@ const styles = StyleSheet.create({
 });
 
 const BillsList = () => {
-  const navigation = useNavigation<ScreenNavigationProp>();
+  const navigation = useNavigation<BillScreenNavigationType>();
 
   const handlePress = () => {
-    navigation.navigate('ServicesScreen');
+    navigation.navigate('Transactions', { billType: 'pending' });
   };
-
-  const pendingBills = bills?.slice(0, 5);
 
   return (
     <View style={{ paddingHorizontal: 16 }}>
@@ -95,15 +99,6 @@ const BillsList = () => {
         renderItem={({ item }) => <BillItem bill={item} />}
         keyExtractor={(item) => item.id.toString()}
       />
-      {/* <ScrollView>
-        {pendingBills.length === 0 ? (
-          <Text style={styles.text}>No pending bills</Text>
-        ) : (
-          pendingBills.map((pendingBill) => (
-            <BillItem bill={pendingBill} key={pendingBill.id} />
-          ))
-        )}
-      </ScrollView> */}
     </View>
   );
 };

@@ -1,12 +1,7 @@
 /* eslint-disable react/destructuring-assignment */
 import { StyleSheet, ActivityIndicator } from 'react-native';
 import React, { useContext, useRef, useState } from 'react';
-
 import PhoneInput from 'react-native-phone-number-input';
-import { useNavigation } from '@react-navigation/native';
-
-import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
-import RootHomeStackParamList from 'types/navigationTypes';
 import Button from '../../components/UI/Button';
 import Colors from '../../Utils/Colors';
 import Redirect from '../../components/Typography/Redirect';
@@ -35,8 +30,10 @@ function SignInScreen(
   this: any,
   {
     handleAuthAction,
-  }: {
+  }: // navigate,
+  {
     handleAuthAction: (action: string) => void;
+    // navigate: NativeStackScreenProps<RootStackParamList, 'HomeStack'>;
   }
 ) {
   const [showPassword, setShowPassword] = useState(false);
@@ -48,10 +45,6 @@ function SignInScreen(
   });
   const phoneInput = useRef<PhoneInput>(null);
   const authContext = useContext(AuthContext);
-
-  const { navigate } =
-    useNavigation<BottomTabNavigationProp<RootHomeStackParamList>>();
-
   const handleShowPassword = () => {
     setShowPassword(!showPassword);
   };
@@ -72,12 +65,9 @@ function SignInScreen(
       const token = await loginUser(inputValues);
       const userProfile = await getUserProfile(token);
 
-      console.log('userProfile', userProfile);
-
       authContext.authenticate(token, userProfile);
       setisLoading(false);
     } catch (error) {
-      console.log('error', error);
       setisLoading(false);
     }
     // authContext.authenticate(data);

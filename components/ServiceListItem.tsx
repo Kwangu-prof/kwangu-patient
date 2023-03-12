@@ -8,9 +8,10 @@ import {
 } from 'react-native';
 import React from 'react';
 import { useNavigation } from '@react-navigation/native';
-import { RootStackParamList } from 'App';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
+
 import Colors from '../Utils/Colors';
+import { HomeStackParamList } from './navigation/HomeStackNavigator';
 
 type Props = {
   service: {
@@ -90,12 +91,16 @@ const styles = StyleSheet.create({
   },
 });
 
+type ServiceListScreenProps = NativeStackNavigationProp<
+  HomeStackParamList,
+  'Home'
+>;
+
 const ServiceListItem = ({ service }: Props) => {
-  const navigation =
-    useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+  const { navigate } = useNavigation<ServiceListScreenProps>();
 
   const handlePress = () => {
-    navigation.navigate('ServiceDetailsScreen', { serviceId: service.id });
+    navigate('ServiceDetailsScreen', { serviceId: service.id });
   };
   return (
     <Pressable style={styles.container} onPress={handlePress}>

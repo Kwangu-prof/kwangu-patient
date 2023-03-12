@@ -4,18 +4,31 @@ import React, { useContext } from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { Platform } from 'react-native';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import TransactionsIcon from '../icons/TransactionsIcon';
 import RequestIcon from '../icons/RequestIcon';
 import TransactionsScreen from '../../screens/TransactionsScreen';
 import RequestsScreen from '../../screens/RequestsScreen';
 import HomeIcon from '../icons/HomeIcon';
 import Colors from '../../Utils/Colors';
-import HomeStackNavigator from './HomeStackNavigator';
+import HomeStackNavigator, { HomeStackParamList } from './HomeStackNavigator';
 import AuthScreen from '../../screens/auth/AuthScreen';
 import { AuthContext } from '../../store/Context/auth-context';
-import ProfileStackNavigator from './ProfileStackNavigator';
+import ProfileStackNavigator, {
+  ProfileStackParamList,
+} from './ProfileStackNavigator';
 
-const Tab = createBottomTabNavigator();
+export type TabNavigatorParamList = {
+  Auth: undefined;
+  HomeScreen: NativeStackScreenProps<HomeStackParamList>;
+  'My Requests': undefined;
+  Transactions: {
+    billType: string;
+  };
+  Profile: NativeStackScreenProps<ProfileStackParamList>;
+};
+
+const Tab = createBottomTabNavigator<TabNavigatorParamList>();
 
 // const isAuthenticated =;
 const TabNavigator = () => {
@@ -60,10 +73,11 @@ const TabNavigator = () => {
         // <AuthScreen />
         <>
           <Tab.Screen
-            name="Home"
+            name="HomeScreen"
             component={HomeStackNavigator}
             options={{
               tabBarIcon: ({ color }) => <HomeIcon color={color} />,
+              tabBarLabel: 'Home',
             }}
           />
           <Tab.Screen
@@ -75,6 +89,7 @@ const TabNavigator = () => {
           />
           <Tab.Screen
             name="Transactions"
+            initialParams={{ billType: 'transactions' }}
             component={TransactionsScreen}
             options={{
               tabBarIcon: ({ color }) => <TransactionsIcon color={color} />,

@@ -1,4 +1,4 @@
-import { ScrollView, StyleSheet, Text, View, Button } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import React, { useContext, useState } from 'react';
 import ScreenHeader from '../components/ScreenHeader';
 import Container from '../components/Layout/Container';
@@ -19,6 +19,7 @@ const styles = StyleSheet.create({
   },
 });
 
+// type Props = NativeStackScreenProps<HomeStackParamList, 'Home'>;
 function HomeScreen() {
   const [upcoming, setUpcoming] = useState(false);
   const { userDetails } = useContext(AuthContext);

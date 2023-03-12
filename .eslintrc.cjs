@@ -25,5 +25,6 @@ module.exports = {
     'react/function-component-definition': 0,
     'react/require-default-props': 0,
     'import/no-extraneous-dependencies': 0,
+    'import/no-cycle': 0,
   },
 };

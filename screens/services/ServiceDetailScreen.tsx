@@ -8,23 +8,17 @@ import {
 import React from 'react';
 import { RouteProp, useRoute } from '@react-navigation/native';
 import ScreenHeader from '../../components/ScreenHeader';
-import RootHomeStackParamList from '../../types/navigationTypes';
 import useFetchData from '../../Hooks/useFetch';
 import Banner from '../../components/Layout/Banner';
 import TextInputField from '../../components/UI/TextInputField';
 import Colors from '../../Utils/Colors';
 import ServiceListItem from '../../components/ServiceListItem';
 import SpecialtyItem from '../../components/SpecialtyItem';
-// import { RootHomeStackParamList } from '../../components/navigation/HomeStackNavigator';
 
 // type Props = { text: string };
-type ServiceRouteProps = RouteProp<
-  RootHomeStackParamList,
-  'ServiceDetailsScreen'
->;
 
 const ServiceDetailScreen = () => {
-  const { params } = useRoute<ServiceRouteProps>();
+  const { params } = useRoute();
   const { data, error, isLoading } = useFetchData(
     ['service', params.serviceId],
     `/services/${params.serviceId}`,

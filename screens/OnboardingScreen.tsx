@@ -13,15 +13,16 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { AntDesign } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from 'App';
 
 import { OnboardingData } from '../Utils/onboardingData';
 import OnboardingItem from '../components/Layout/OnboardingItem';
 import Colors from '../Utils/Colors';
+import { HomeStackParamList } from '../components/navigation/HomeStackNavigator';
 
-type ProfileScreenNavigationProp =
-  NativeStackNavigationProp<RootStackParamList>;
+type OnboardingScreenNavigationProps =
+  NativeStackScreenProps<HomeStackParamList>;
 
 const styles = StyleSheet.create({
   container: {
@@ -63,7 +64,7 @@ function OnboardingScreen() {
   const [curentSlideIndex, setCurrentSlideIndex] = useState(0);
   const { width } = useWindowDimensions();
   // const navigation = useNavigation<StackNavigationProp<{ route: object }>>();
-  const navigation = useNavigation<ProfileScreenNavigationProp>();
+  const { navigation } = useNavigation<OnboardingScreenNavigationProps>();
 
   const ref = useRef<FlatList>(null);
 
