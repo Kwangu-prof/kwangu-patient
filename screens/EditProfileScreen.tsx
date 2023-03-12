@@ -10,6 +10,8 @@ import {
 import React, { useContext, useRef } from 'react';
 import { MaterialIcons } from '@expo/vector-icons';
 import PhoneInput, { isValidNumber } from 'react-native-phone-number-input';
+import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack/lib/typescript/src/types';
 import { AuthContext } from '../store/Context/auth-context';
 import Container from '../components/Layout/Container';
 import ScreenHeader from '../components/ScreenHeader';
@@ -18,6 +20,9 @@ import InputToggle from '../components/UI/InputToggle';
 import TextInputField from '../components/UI/TextInputField';
 import RadioButtons from '../components/UI/RadioButtons';
 import Button from '../components/UI/Button';
+import AccordionItem from '../components/Layout/AccordionItem';
+import { ProfileStackParamList } from '../components/navigation/ProfileStackNavigator';
+import DependantItem from '../components/DependantItem';
 
 type Props = {};
 
@@ -49,11 +54,22 @@ const styles = StyleSheet.create({
   },
 });
 
+const dependendants = [
+  { id: 1, firstName: 'Pinky', lastName: 'Blue', category: 'Adult' },
+  { id: 2, firstName: 'Yuri', lastName: 'Gargarin', category: 'Child' },
+  { id: 3, firstName: 'Neil', lastName: 'Armstrong', category: 'Aged' },
+];
+
 const EditProfileScreen = (props: Props) => {
   const { userDetails } = useContext(AuthContext);
   const phoneInput = useRef<PhoneInput>(null);
 
-  const info = (
+  const navigation =
+    useNavigation<
+      NativeStackNavigationProp<ProfileStackParamList, 'EditProfileScreen'>
+    >();
+
+  const personalInfo = (
     <>
       <TextInputField
         config={{
@@ -87,24 +103,12 @@ const EditProfileScreen = (props: Props) => {
         }}
         styling={{ marginBottom: 24 }}
       />
-      <TextInputField
-        config={{
-          defaultValue: userDetails.email || '',
-          placeholder: 'Email Address',
-          // onChangeText: handleInputChange.bind(this, 'email'),
-        }}
-        styling={{ marginBottom: 24 }}
-      />
       <RadioButtons data={[{ value: 'Male' }, { value: 'Female' }]} />
-      <TextInputField
-        config={{
-          defaultValue:
-            `${userDetails.lattitude}, ${userDetails.longitude}` || '',
-          placeholder: 'Location',
-          // onChangeText: handleInputChange.bind(this, 'email'),
-        }}
-        styling={{ marginBottom: 24 }}
-      />
+    </>
+  );
+
+  const contactInfo = (
+    <>
       <PhoneInput
         containerStyle={{
           width: '100%',
@@ -128,6 +132,14 @@ const EditProfileScreen = (props: Props) => {
         //   handleInputChange('country', event.name);
         // }}
       />
+      <TextInputField
+        config={{
+          defaultValue: userDetails.email || '',
+          placeholder: 'Email Address',
+          // onChangeText: handleInputChange.bind(this, 'email'),
+        }}
+        styling={{ marginBottom: 24 }}
+      />
     </>
   );
 
@@ -150,9 +162,30 @@ const EditProfileScreen = (props: Props) => {
           snapToEnd
           style={{ marginBottom: 20 }}
         >
-          <InputToggle text="test" />
-          {info}
-          <Text>EditProfileScreen</Text>
+          <AccordionItem title="Personal Information">
+            {personalInfo}
+          </AccordionItem>
+          <AccordionItem title="Contact Information">
+            {contactInfo}
+          </AccordionItem>
+          <AccordionItem title="Dependant Information">
+            <>
+              <Button
+                title="Add new dependant"
+                fullWidth
+                variant="solid"
+                color={Colors.secondary}
+                onPress={() => {
+                  navigation.navigate('AddNewDependantScreen');
+                }}
+              />
+              {/* <ScrollView> */}
+              {dependendants.map((dependant) => (
+                <DependantItem key={dependant.id} dependant={dependant} />
+              ))}
+              {/* </ScrollView> */}
+            </>
+          </AccordionItem>
           <View style={styles.buttonsContainer}>
             <Button
               title="Save Changes"
@@ -165,7 +198,9 @@ const EditProfileScreen = (props: Props) => {
             <Button
               title="Cancel"
               color={Colors.gray}
-              onPress={() => {}}
+              onPress={() => {
+                navigation.goBack();
+              }}
               variant="outlined"
             />
           </View>
